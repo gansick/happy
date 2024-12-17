@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -36,71 +36,71 @@
                 border-radius: 5px;
                 margin-top: 20px;
             }
-            .mycards {
-                width: 1200px;
-                margin: 30px auto 0px auto;
+ .마이카드 {
+ 너비: 1200 px;
+ 마진: 30 px 오토 0 px 오토;
             }
-            .mypostingbox {
-                width: 550px;
-                margin: 30px auto 0px auto;
-                padding: 20px;
-                box-shadow: 0px 0px 3px 0px gray;
-                border-radius: 5px;
+ .마이포스팅박스 {
+ 너비: 550 px;
+ 마진: 30 px 오토 0 px 오토;
+ 패딩: 20 px;
+ box-shadow: 0px 0px 3px 0px gray;
+ 국경 radius: 5 px;
             }
-            .mybtn {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
+ .mybtn {
+ 디스플레이: 플렉스;
+ 플렉스 direction: 행;
+ 정렬 items: 중심;
+ 정당화 내용: 중심;
             }
-            .mybtn > button {
-                margin-right: 5px;
+ .mybtn > 버튼 {
+ 마진 라이트: 5 px;
             }
-            .card-img-top {
-                width: 100%;
-                height: 400px;
-                object-fit: cover;
+ .card-img-top {
+ 너비: 100%;
+ 높이: 400 px;
+ 객체 맞춤: 커버;
             }
-        </style>
-    </head>
-    <body>
-        <div class="mytitle">
-            <h1>영화 기록장</h1>
-            <button onclick="openclose()">영화 기록하기</button>
-        </div>
-        <div class="mypostingbox" id="postingbox" style="display: none;">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="image" placeholder="영화 표지" />
-                <label for="floatingInput">영화 표지(이미지 주소 첨부)</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="title" placeholder="영화 제목" />
-                <label for="floatingInput">영화 제목</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="content" placeholder="영화 후기" />
-                <label for="floatingInput">영화 후기</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="date" placeholder="영화 본 날짜" />
-                <label for="floatingInput">영화 본 날짜</label>
-            </div>
-            <div class="mybtn">
-                <button type="button" onclick="makeCard()" class="btn btn-dark">기록하기</button>
-            </div>
-        </div>
+ </스타일>
+ </머리>
+ <바디>
+ <div class="Mytitle">
+ <h1>영화 기록장</h1>
+ <버튼 클릭="닫기 () 열기">영화 기록하기</버튼>
+ </div>
+ <div class="Mypostingbox" ID="postingbox" 스타일="디스플레이: 없음;">
+ <div class="form-floating mb-3">
+ <입력 유형="text" class="form-control" id="image" 플레이스홀더="영화 표지" />
+ <="floatingInput">영화 표지(이미지 주소 첨부)<label>
+ </div>
+ <div class="form-floating mb-3">
+ <입력 유형="text" class="form-control" id="title" 플레이스홀더="영화 제목" />
+ <label for ="floatingInput">영화 제목</label>
+ </div>
+ <div class="form-floating mb-3">
+ <입력 유형="텍스트" 클래스="폼 제어" ID="콘텐츠" 플레이스홀더="영화 후기" />
+ <label for ="floatingInput">영화 후기</label>
+ </div>
+ <div class="form-floating mb-3">
+ <입력 유형="text" class="form-control" id="날짜" 플레이스홀더="영화 본 날짜" />
+ <label for ="floatingInput">영화 본 날짜</label>
+ </div>
+ <div class="mybtn">
+ <버튼 입력="버튼" 클릭="makeCard()" class="btn btn-dark">기록하기</버튼>
+ </div>
+ </div>
 
-        <div class="mycards">
-            <div id="card" class="row row-cols-1 row-cols-md-4 g-3">
+ <div class="마이카드">
+ <div id="card" class="row low-cols-1 rorow-cols-md-4 g-3">
                 
-            </div>
-        </div>
+ </div>
+ </div>
 
-        <script>
+ <스크립트>
             
-            $(document).ready(function () {
-                loadCards();
-            });
+ $(document).준비 완료 (함수) {
+ 로드카드();
+ });
 
             
             function saveCards() {
