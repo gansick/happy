@@ -1,162 +1,134 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>영화 기록장</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous"
-        />
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-            * {
-                font-family: 'Gowun Dodum', sans-serif;
-            }
-            .mytitle {
-                height: 250px;
-                color: white;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                background-image: url('https://i.pinimg.com/1200x/c3/1e/85/c31e857d3b4a22991dc2fbe9ff7118d7.jpg');
-                background-position: center;
-                background-size: cover;
-            }
-            .mytitle > button {
-                width: 150px;
-                height: 50px;
-                background-color: transparent;
-                color: white;
-                border: 1px solid white;
-                border-radius: 5px;
-                margin-top: 20px;
-            }
-            .mycards {
-                width: 1200px;
-                margin: 30px auto 0px auto;
-            }
-            .mypostingbox {
-                width: 550px;
-                margin: 30px auto 0px auto;
-                padding: 20px;
-                box-shadow: 0px 0px 3px 0px gray;
-                border-radius: 5px;
-            }
-            .mybtn {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-            }
-            .mybtn > button {
-                margin-right: 5px;
-            }
-            .card-img-top {
-                width: 100%;
-                height: 400px;
-                object-fit: cover;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="nav">
-            <a class="nav-link active" aria-current="page" href="#">영화 기록</a>
-            <a class="nav-link" href="#">일기</a>
-            <a class="nav-link" href="#">앨범</a>
-            <a class="nav-link disabled" aria-disabled="true"></a>
-        </nav>
-        
-        <div class="mytitle">
-            <h1>영화 기록장</h1>
-            <button onclick="openclose()">영화 기록하기</button>
-        </div>
-        <div class="mypostingbox" id="postingbox" style="display: none;">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="image" placeholder="영화 표지" />
-                <label for="floatingInput">영화 표지(이미지 주소 첨부)</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="title" placeholder="영화 제목" />
-                <label for="floatingInput">영화 제목</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="content" placeholder="영화 후기" />
-                <label for="floatingInput">영화 후기</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="date" placeholder="영화 본 날짜" />
-                <label for="floatingInput">영화 본 날짜</label>
-            </div>
-            <div class="mybtn">
-                <button type="button" onclick="makeCard()" class="btn btn-dark">기록하기</button>
-            </div>
-        </div>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>타자기</title>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      margin: 10px;
+    }
+    .typewriter {
+      margin-top: 30px;
+    }
+    .paper {
+      width: 80%;
+      height: 200px;
+      background: white;
+      border: 2px solid black;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: left;
+      font-size: 18px;
+      overflow-y: auto;
+    }
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .row {
+      margin: 5px;
+    }
+    .key {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin: 3px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #eee;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+    }
+    
+    .group1 { background-color: #ffbdde; } 
+    .group2 { background-color: #99ccff; } 
+    .group3 { background-color: #f2ffaa; } 
+    .group4 { background-color: #cbcfff; } 
+  </style>
+</head>
+<body>
 
-        <div class="mycards">
-            <div id="card" class="row row-cols-1 row-cols-md-4 g-3">
-                
-            </div>
-        </div>
+  <h1>타자기 만들기</h1>
+  <h2>한양여자대학교</h2>
+  <h3>노은주 - 2402168</h3>
 
-        <script>
-            
-            $(document).ready(function () {
-                loadCards();
-            });
+  <div class="typewriter">
+    <label class="paper" id="display"></label>
 
-            
-            function saveCards() {
-                let cardContent = $('#card').html();
-                localStorage.setItem('movieCards', cardContent);
-            }
+    <div class="keyboard">
+      <div class="row">
+        <span class="key group1">1</span>
+        <span class="key group1">2</span>
+        <span class="key group1">3</span>
+        <span class="key group1">4</span>
+        <span class="key group1">5</span>
+        <span class="key group1">6</span>
+        <span class="key group1">7</span>
+        <span class="key group1">8</span>
+        <span class="key group1">9</span>
+        <span class="key group1">0</span>
+      </div>
+      <div class="row">
+        <span class="key group2">Q</span>
+        <span class="key group2">E</span>
+        <span class="key group2">W</span>
+        <span class="key group2">R</span>
+        <span class="key group2">T</span>
+        <span class="key group2">Y</span>
+        <span class="key group2">U</span>
+        <span class="key group2">I</span>
+        <span class="key group2">O</span>
+        <span class="key group2">P</span>
+      </div>
+      <div class="row">
+        <span class="key group3">A</span>
+        <span class="key group3">S</span>
+        <span class="key group3">D</span>
+        <span class="key group3">F</span>
+        <span class="key group3">G</span>
+        <span class="key group3">H</span>
+        <span class="key group3">J</span>
+        <span class="key group3">K</span>
+        <span class="key group3">L</span>
+        <span class="key group3">;</span>
+      </div>
+      <div class="row">
+        <span class="key group4">Z</span>
+        <span class="key group4">X</span>
+        <span class="key group4">C</span>
+        <span class="key group4">V</span>
+        <span class="key group4">B</span>
+        <span class="key group4">N</span>
+        <span class="key group4">M</span>
+        <span class="key group4">,</span>
+        <span class="key group4">.</span>
+        <span class="key group4">/</span>
+      </div>
+    </div>
+  </div>
 
-           
-            function loadCards() {
-                let savedCards = localStorage.getItem('movieCards');
-                if (savedCards) {
-                    $('#card').html(savedCards);
-                }
-            }
+  <script>
+    const display = document.getElementById('display');
+    const keys = document.querySelectorAll('.key');
 
-          
-            function makeCard() {
-                let image = $('#image').val();
-                let title = $('#title').val();
-                let content = $('#content').val();
-                let date = $('#date').val();
+    document.addEventListener('keydown', (event) => {
+      const validKeys = "1234567890QEWRTYUIOPASDFGHJKL;ZXCVBNM,./";
+      let key = event.key.toUpperCase();
+      if (validKeys.includes(key)) {
+        display.innerText += event.key;
+      }
+    });
+  </script>
 
-                let temp_html = `
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="${image}" class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">${title}</h5>
-                                <p class="card-text">${content}</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-body-secondary">${date}</small>
-                            </div>
-                        </div>
-                    </div>`;
-
-                $('#card').append(temp_html);
-                saveCards();
-
-                $('#image').val('');
-                $('#title').val('');
-                $('#content').val('');
-                $('#date').val('');
-            }
-
-        
-            function openclose() {
-                $('#postingbox').toggle();
-            }
-        </script>
-    </body>
+</body>
 </html>
