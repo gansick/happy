@@ -57,6 +57,8 @@
     .group2 { background-color: #ccffcc; } 
     .group3 { background-color: #ccccff; } 
     .group4 { background-color: #ffffcc; } 
+    .key.en-toggle { background-color: #66ccff !important; } 
+    .key.ko-toggle { background-color: #ff6666 !important; } 
     .toggle {
       margin-top: 20px;
       font-weight: bold;
@@ -93,8 +95,7 @@
     const koKeys = [
       { chars: ['ㅂ','ㅈ','ㄷ','ㄱ','ㅅ','ㅛ','ㅕ','ㅑ','ㅐ','ㅔ'], group: 'group1' },
       { chars: ['ㅁ','ㄴ','ㅇ','ㄹ','ㅎ','ㅗ','ㅓ','ㅏ','ㅣ'], group: 'group2' },
-      { chars: ['ㅋ','ㅌ','ㅊ','ㅍ','ㅠ','ㅜ','ㅡ'], group: 'group3' },
-      { chars: ['한/영'], group: 'group4' },
+      { chars: ['ㅋ','ㅌ','ㅊ','ㅍ','ㅠ','ㅜ','ㅡ', '.'], group: 'group3' },
     ];
 
     function renderKeyboard() {
@@ -107,6 +108,10 @@
           const key = document.createElement('div');
           key.className = `key ${row.group}`;
           key.innerText = char;
+          
+          if (!isKorean && char === '.') key.classList.add('en-toggle');
+          if (isKorean && char === '.') key.classList.add('ko-toggle');
+
           keyboard.appendChild(rowDiv);
           rowDiv.appendChild(key);
         });
