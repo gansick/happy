@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>한양, 빅데이터, 2402168, 노은주</title>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      margin: 10px;
+    }
+    .typewriter {
+      margin-top: 30px;
+    }
+    .paper {
+      width: 80%;
+      height: 200px;
+      background: white;
+      border: 2px solid black;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: left;
+      font-size: 18px;
+      overflow-y: auto;
+    }
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .row {
+      margin: 5px;
+    }
+    .key {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin: 3px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #eee;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+      transition: background-color 0.1s;
+    }
+    .key.active {
+      background-color: yellow;
+    }
+    .group1 { background-color: #ffcccc; } 
+    .group2 { background-color: #ccffcc; } 
+    .group3 { background-color: #ccccff; } 
+    .group4 { background-color: #ffffcc; } 
+    .toggle {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>한양여자대학교</h1>
+  <h2>빅데이터과</h2>
+  <h3>노은주 - 2402168</h3>
+
+  <div class="typewriter">
+    <label class="paper" id="display"></label>
+
+    <div class="toggle">현재 입력 언어: <span id="lang-mode">영어</span></div>
+
+    <div class="keyboard" id="keyboard"></div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const keyboard = document.getElementById('keyboard');
+    const langLabel = document.getElementById('lang-mode');
+    let isKorean = false;
+
+    const enKeys = [
+      { chars: ['1','2','3','4','5','6','7','8','9','0'], group: 'group1' },
+      { chars: ['Q','E','W','R','T','Y','U','I','O','P'], group: 'group2' },
+      { chars: ['A','S','D','F','G','H','J','K','L'], group: 'group3' },
+      { chars: ['Z','X','C','V','B','N','M',',','.'], group: 'group4' },
+    ];
+
+    const koKeys = [
+      { chars: ['ㅂ','ㅈ','ㄷ','ㄱ','ㅅ','ㅛ','ㅕ','ㅑ','ㅐ','ㅔ'], group: 'group1' },
+      { chars: ['ㅁ','ㄴ','ㅇ','ㄹ','ㅎ','ㅗ','ㅓ','ㅏ','ㅣ'], group: 'group2' },
+      { chars: ['ㅋ','ㅌ','ㅊ','ㅍ','ㅠ','ㅜ','ㅡ'], group: 'group3' },
+      { chars: ['한/영'], group: 'group4' },
+    ];
+
+    function renderKeyboard() {
+      keyboard.innerHTML = '';
+      const layout = isKorean ? koKeys : enKeys;
+      layout.forEach(row => {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
+        row.chars.forEach(char => {
+          const key = document.createElement('div');
+          key.className = `key ${row.group}`;
+          key.innerText = char;
+          keyboard.appendChild(rowDiv);
+          rowDiv.appendChild(key);
+        });
+      });
+    }
+
+    function flashKey(char) {
+      const allKeys = document.querySelectorAll('.key');
+      allKeys.forEach(k => {
+        if (k.innerText.toUpperCase() === char.toUpperCase()) {
+          k.classList.add('active');
+          setTimeout(() => k.classList.remove('active'), 200);
+        }
+      });
+    }
+
+    document.addEventListener('keydown', e => {
+      let key = e.key;
+
+
+      if (key === 'HangulMode' || key === '.' || key === '한/영') {
+        isKorean = !isKorean;
+        langLabel.innerText = isKorean ? '한글' : '영어';
+        renderKeyboard();
+        return;
+      }
+
+      flashKey(key);
+
+      if (isKorean) {
+        const map = {
+          q:'ㅂ', w:'ㅈ', e:'ㄷ', r:'ㄱ', t:'ㅅ', y:'ㅛ', u:'ㅕ', i:'ㅑ', o:'ㅐ', p:'ㅔ',
+          a:'ㅁ', s:'ㄴ', d:'ㅇ', f:'ㄹ', g:'ㅎ', h:'ㅗ', j:'ㅓ', k:'ㅏ', l:'ㅣ',
+          z:'ㅋ', x:'ㅌ', c:'ㅊ', v:'ㅍ', b:'ㅠ', n:'ㅜ', m:'ㅡ'
+        };
+        const lowKey = key.toLowerCase();
+        if (map[lowKey]) display.innerText += map[lowKey];
+      } else {
+        if (/^[a-z0-9.,]$/i.test(key)) display.innerText += key;
+      }
+    });
+
+    renderKeyboard();
+  </script>
+
+</body>
+</html>
