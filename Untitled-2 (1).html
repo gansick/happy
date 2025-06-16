@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>계산기</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f3f6fa;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .calculator {
+      background-color: #fffefe;
+      border-radius: 20px;
+      padding: 20px;
+      width: 320px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    }
+
+    .display {
+      background-color: #ffffff;
+      border-radius: 15px;
+      border: 1px solid #d3d3d3;
+      color: #1e1e1e;
+      font-size: 2.5rem;
+      padding: 20px;
+      text-align: right;
+      margin-bottom: 20px;
+      height: 60px;
+      overflow: hidden;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    button {
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .number {
+      background-color: #efefef;
+      color: #000;
+      border-radius: 50%;
+      height: 60px;
+      width: 60px;
+    }
+
+    .function {
+      background-color: #dbe9ff;
+      color: #0066cc;
+      border-radius: 50%;
+      height: 60px;
+      width: 60px;
+    }
+
+    .operator {
+      background-color: #dbe9ff;
+      color: #0055aa;
+      border-radius: 10px; 
+      height: 60px;
+      width: 60px;
+    }
+
+    .equal {
+      background-color: #0055cc;
+      color: white;
+      border-radius: 30px;
+      height: 60px;
+      width: 220%;
+      grid-column: span 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="function">AC</button>
+      <button class="function">±</button>
+      <button class="function">%</button>
+      <button class="operator">÷</button>
+
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operator">×</button>
+
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operator">−</button>
+
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="operator">+</button>
+
+      <button class="number">0</button>
+      <button class="number">.</button>
+      <button class="equal">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+    const buttons = document.querySelectorAll("button");
+
+    let currentInput = "";
+    let operator = "";
+    let firstOperand = "";
+    let resultShown = false;
+
+    function updateDisplay(value) {
+      display.textContent = value.length > 15 ? value.slice(0, 15) : value;
+    }
+
+    function calculate() {
+      const a = parseFloat(firstOperand);
+      const b = parseFloat(currentInput);
+      let result = 0;
+
+      switch (operator) {
+        case "+":
+          result = a + b;
+          break;
+        case "−":
+          result = a - b;
+          break;
+        case "×":
+          result = a * b;
+          break;
+        case "÷":
+          result = a / b;
+          break;
+        default:
+          return;
+      }
+
+      updateDisplay(result.toString());
+      currentInput = result.toString();
+      firstOperand = result.toString();
+      resultShown = true;
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const value = button.textContent;
+
+        if (button.classList.contains("number")) {
+          if (resultShown) {
+            currentInput = "";
+            resultShown = false;
+          }
+          if (value === "." && currentInput.includes(".")) return;
+          currentInput += value;
+          updateDisplay(currentInput);
+        }
+
+        else if (button.classList.contains("operator")) {
+          if (currentInput === "") return;
+          if (firstOperand && operator) {
+            calculate();
+          } else {
+            firstOperand = currentInput;
+          }
+          operator = value;
+          currentInput = "";
+        }
+
+        else if (button.classList.contains("function")) {
+          if (value === "AC") {
+            currentInput = "";
+            firstOperand = "";
+            operator = "";
+            updateDisplay("0");
+          } else if (value === "±") {
+            currentInput = (parseFloat(currentInput) * -1).toString();
+            updateDisplay(currentInput);
+          } else if (value === "%") {
+            currentInput = (parseFloat(currentInput) / 100).toString();
+            updateDisplay(currentInput);
+          }
+        }
+
+        else if (button.classList.contains("equal")) {
+          if (!firstOperand || !currentInput || !operator) return;
+          calculate();
+          operator = "";
+        }
+      });
+    });
+
+    // 키보드 입력 지원
+    document.addEventListener("keydown", (e) => {
+      const key = e.key;
+
+      if (!isNaN(key) || key === ".") {
+        if (resultShown) {
+          currentInput = "";
+          resultShown = false;
+        }
+        if (key === "." && currentInput.includes(".")) return;
+        currentInput += key;
+        updateDisplay(currentInput);
+      }
+
+      if (key === "+" || key === "-" || key === "*" || key === "/") {
+        if (currentInput === "") return;
+        if (firstOperand && operator) {
+          calculate();
+        } else {
+          firstOperand = currentInput;
+        }
+
+        operator = key === "*" ? "×" :
+                   key === "/" ? "÷" :
+                   key === "-" ? "−" : "+";
+        currentInput = "";
+      }
+
+      if (key === "Enter" || key === "=") {
+        if (firstOperand && currentInput && operator) {
+          calculate();
+          operator = "";
+        }
+      }
+
+      if (key === "Escape") {
+        currentInput = "";
+        firstOperand = "";
+        operator = "";
+        updateDisplay("0");
+      }
+
+      if (key === "Backspace") {
+        currentInput = currentInput.slice(0, -1);
+        updateDisplay(currentInput || "0");
+      }
+    });
+  </script>
+</body>
+</html>
