@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>전화기 시뮬레이터</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8e1;
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    #display {
+      font-size: 24px;
+      margin: 20px auto;
+      padding: 10px;
+      width: 260px;
+      border: 2px solid #333;
+      background: #e0f7fa;
+      word-wrap: break-word;
+      min-height: 30px;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    button {
+      font-size: 20px;
+      padding: 15px;
+      background: #8fc5fc;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #58caff;
+    }
+    #clear {
+      margin-top: 20px;
+      background: #ef5350;
+      color: white;
+    }
+    #clear:hover {
+      background: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="display"></div>
+
+  <div class="keypad">
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button onclick="press('*')">*</button>
+    <button onclick="press('0')">0</button>
+    <button onclick="press('#')">#</button>
+  </div>
+
+  <button id="clear" onclick="clearInput()">초기화</button>
+
+  <script>
+    let input = '';
+    const display = document.getElementById('display');
+
+    function press(val) {
+      input += val;
+      formatAndDisplay();
+    }
+
+    function formatAndDisplay() {
+      
+      const digits = input.replace(/\D/g, '');
+
+      if (digits.length === 11 && /^010/.test(digits)) {
+        
+        input = digits.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      }
+
+      display.innerText = input;
+    }
+
+    function clearInput() {
+      input = '';
+      display.innerText = '';
+    }
+  </script>
+
+</body>
+</html>
