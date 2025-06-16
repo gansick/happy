@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>노은주의 포트폴리오</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* GNB */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: white;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+
+    .dropdown {
+      position: relative;
+      padding: 1rem;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: black;
+    }
+
+    .dropdown-content a:hover {
+      color: #007bff;
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover > span {
+      color: #007bff;
+    }
+
+    .footer {
+      background-color: black;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.8rem;
+      padding: 1rem;
+      text-align: left;
+      margin-top: auto;
+    }
+
+    .review-page {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #eee;
+      margin: 0 auto;
+      background-image: url('https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2Fdata34%2F2008%2F8%2F22%2F123%2Fimg_14_143_0_hj7825.jpg&type=sc960_832');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .review-author {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .review-title {
+      margin-top: 2rem;
+      font-weight: bold;
+    }
+
+    .divider {
+      border-top: 1px solid #ccc;
+      margin: 0.5rem auto 1rem;
+      width: 60%;
+    }
+
+    .review-content {
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <nav>
+    <div class="dropdown">
+      <span>영문 타자기</span>
+      <div class="dropdown-content">
+        <a href="https://gansick.github.io/happy/project.html">페이지 이동</a>
+        <a href="review_eng.html">후기</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <span>한글 타자기</span>
+      <div class="dropdown-content">
+        <a href="https://gansick.github.io/happy/key.html">페이지 이동</a>
+        <a href="review_kor.html">후기</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <span>계산기</span>
+      <div class="dropdown-content">
+        <a href="https://gansick.github.io/happy/project3.html">페이지 이동</a>
+        <a href="review_calculator.html">후기</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <span>전화기</span>
+      <div class="dropdown-content">
+        <a href="https://gansick.github.io/happy/project4.html">페이지 이동</a>
+        <a href="review_phone.html">후기</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 후기 페이지 예시 (초기 화면) -->
+  <div class="review-page">
+    <div class="profile-img"></div> <!-- 이미지 삽입은 위 스타일 주석 참고 -->
+    <div class="review-author">노은주</div>
+    <div class="review-title">안녕하세요!</div>
+    <div class="divider"></div>
+    <div class="review-content">
+      네비게이션바를 통해 사이트 방문, 후기를 봐주세요!
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    한양여자대학교 빅데이터과<br />
+    010-2281-7854<br />
+    2402168 노은주
+  </footer>
+</body>
+
+</html>
